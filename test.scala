@@ -1,11 +1,28 @@
-import cats.data.{EitherT, ReaderT}
+import cats.data.{ReaderT, EitherT, OptionT}
 import cats.implicits._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
+object FutureOption {
+  case class KPI(name: String)
+  case class KpiRequest(kpiName: String)
+  case class Query()
+
+  def getKPI(kpiName: String): OptionT[Future, KPI] = ??? // defined elsewhere
+
+  def buildQuery(kr: KpiRequest): OptionT[Future, Query] = ??? // defined elsewhere
+
+  def addKpiRequest(kr: KpiRequest): OptionT[Future, Unit] = ??? // defined elsewhere
+
+  def mainLogic(kpiName: String): OptionT[Future, Unit] = for {
+    kpi <- getKPI(kpiName)
+    kpiRequest = KpiRequest(kpi.name)
+    query <- buildQuery(kpiRequest)
+  } yield(addKpiRequest(kpiRequest))
+}
 
 
-object Service {
+object ReaderFutureEither {
   case class Config()
   type Status = String
 
