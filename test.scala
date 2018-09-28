@@ -3,7 +3,7 @@ import cats.implicits._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-object FutureOption {
+object FutureOptionExample {
   case class KPI(name: String)
   case class KpiRequest(kpiName: String)
   case class Query()
@@ -21,7 +21,7 @@ object FutureOption {
   } yield(addKpiRequest(kpiRequest))
 }
 
-object FutureEither {
+object FutureEitherExample {
   type UserID = String
   case class User(name: String)
   case class Error(errorMessage: String)
@@ -35,7 +35,7 @@ object FutureEither {
     } yield (friends1 & friends2)
 }
 
-object ReaderFutureEither {
+object ReaderFutureEitherExample {
   case class Config()
   type Status = String
 
