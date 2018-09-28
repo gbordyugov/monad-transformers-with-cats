@@ -21,6 +21,19 @@ object FutureOption {
   } yield(addKpiRequest(kpiRequest))
 }
 
+object FutureEither {
+  type UserID = String
+  case class User(name: String)
+  case class Error(errorMessage: String)
+
+  def getFriends(userId: UserID): EitherT[Future, Error, Set[UserID]] = ???
+
+  def getCommonFriends(userId1: UserID, userId2: UserID): EitherT[Future, Error, Set[UserID]] = 
+    for {
+      friends1 <- getFriends(userId1)
+      friends2 <- getFriends(userId2)
+    } yield (friends1 & friends2)
+}
 
 object ReaderFutureEither {
   case class Config()
